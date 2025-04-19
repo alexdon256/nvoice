@@ -41,6 +41,7 @@ setup(
        ,'ffmpeg-python'
        ,'language-tool-python'
        ,'yt_dlp'
+       ,'git+https://github.com/chimneycrane/TTS.git'
        ,'spleeter==2.4.2'
     ],
     cmdclass={
