@@ -41,7 +41,7 @@ setup(
        ,'ffmpeg-python'
        ,'language-tool-python'
        ,'yt_dlp'
-       ,'spleeter'
+       ,'spleeter==2.4.0'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
