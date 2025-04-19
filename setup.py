@@ -35,13 +35,13 @@ setup(
        ,'openai-whisper'
        ,'pytube'
        ,'pydub'
-       ,'pyannote.audio'
        ,'deep-translator'
        ,'ipython'
        ,'ffmpeg-python'
        ,'language-tool-python'
        ,'yt_dlp'
        ,'spleeter==2.4.2'
+       ,'pyannote.audio'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
