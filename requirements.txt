@@ -5,3 +5,6 @@ language_tool_python
 deep_translator
 num2words
 pyannote.audio
+yt_dlp
+ffmpeg-python
+spleeter

@@ -10,7 +10,7 @@ class Viddub:
     def ExtractVoice(self):
         vocals = self.project_folder+'/vocals.wav'
         audio = AudioSegment.from_file(vocals)
-        lower_sample_rate = 16000
+        lower_sample_rate = 44000
         audio = audio.set_frame_rate(lower_sample_rate)
         audio.export(vocals, format='wav')
         return vocals, self.project_folder+'/accompaniment.wav'

@@ -40,6 +40,8 @@ setup(
        ,'ipython'
        ,'ffmpeg-python'
        ,'language-tool-python'
+       ,'yt_dlp'
+       ,'spleeter'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
