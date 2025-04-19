@@ -20,7 +20,7 @@ setup(
         ],
     },
     dependency_links=[
-        'https://download.pytorch.org/whl/cu121'  # Specify the index URL
+        'git+https://github.com/chimneycrane/TTS.gitt#egg=TTS'
     ],
     extras_require={
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
@@ -41,7 +41,6 @@ setup(
        ,'ffmpeg-python'
        ,'language-tool-python'
        ,'yt_dlp'
-       ,'git+https://github.com/chimneycrane/TTS.git'
        ,'spleeter==2.4.2'
     ],
     cmdclass={
