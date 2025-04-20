@@ -23,7 +23,7 @@ setup(
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
     install_requires=[
-        'spleeter==2.4.2'
+        'spleeter'
        ,'pandas'
        ,'scipy'
        ,'num2words'
@@ -39,7 +39,6 @@ setup(
        ,'yt_dlp'
        ,'click==8.1.3'
        ,'torch==2.6.0'
-       ,'typing-extensions==4.12.2'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
