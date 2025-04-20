@@ -24,8 +24,6 @@ setup(
     },
     install_requires=[
         'spleeter'
-       ,'pandas'
-       ,'scipy'
        ,'num2words'
        ,'audiostretchy'
        ,'numpy'
@@ -37,8 +35,6 @@ setup(
        ,'ffmpeg-python'
        ,'language-tool-python'
        ,'yt_dlp'
-       ,'click==8.1.3'
-       ,'torch==2.6.0'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
