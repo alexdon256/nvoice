@@ -28,7 +28,7 @@ setup(
        ,'spleeter==2.4.2'
        ,'audiostretchy'
        ,'pydub==0.25.1'
-       ,'httpx==0.25.0'
+       ,'ipython==7.34.0'
        ,'pyannote.audio==3.1.1'
        ,'transformers'
        ,'numba'
