@@ -23,7 +23,7 @@ setup(
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
     install_requires=[
-        'typer'
+        'spleeter==2.4.2'
        ,'pandas'
        ,'scipy'
        ,'num2words'
@@ -38,7 +38,6 @@ setup(
        ,'language-tool-python'
        ,'yt_dlp'
        ,'click==8.1.3'
-       ,'spleeter==2.4.2'
        ,'torch==2.6.0'
        ,'typing-extensions==4.12.2'
        ,'typer==0.12.1'
