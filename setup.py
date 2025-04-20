@@ -16,7 +16,7 @@ setup(
     setup_requires=['setuptools_git'],
     entry_points={
         'console_scripts': [
-            'nvoice=main:main',
+            'nvoice=nvoice.main:main',
         ],
     },
     extras_require={
