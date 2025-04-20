@@ -19,9 +19,6 @@ setup(
             'nvoice=main:main',
         ],
     },
-    dependency_links=[
-        'git+https://github.com/chimneycrane/TTS.gitt#egg=TTS'
-    ],
     extras_require={
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
@@ -41,7 +38,6 @@ setup(
        ,'language-tool-python'
        ,'yt_dlp'
        ,'spleeter==2.4.2'
-       ,'pyannote.audio==3.2.0'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
