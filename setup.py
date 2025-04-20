@@ -40,7 +40,6 @@ setup(
        ,'click==8.1.3'
        ,'torch==2.6.0'
        ,'typing-extensions==4.12.2'
-       ,'typer==0.12.1'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
