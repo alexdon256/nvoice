@@ -37,7 +37,6 @@ setup(
        ,'language-tool-python'
        ,'ffmpeg-python'
        ,'yt_dlp'
-       ,'typing_extensions==4.6'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
