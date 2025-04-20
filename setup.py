@@ -23,13 +23,13 @@ setup(
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
     install_requires=[
-        'numpy'
+        'torch'
        ,'num2words'
        ,'openai-whisper'
-       ,'spleeter'
+       ,'spleeter==2.4.2'
        ,'audiostretchy'
-       ,'pydub'
-       ,'pyannote.audio'
+       ,'pydub==0.25.1'
+       ,'pyannote.audio==3.1.1'
        ,'transformers'
        ,'numba'
        ,'deep-translator'
