@@ -37,7 +37,7 @@ setup(
        ,'language-tool-python'
        ,'ffmpeg-python'
        ,'yt_dlp'
-       ,'torch==2.8.0'
+       ,'torch==2.6.0'
        ,'httpx==0.25.0'
     ],
     cmdclass={
