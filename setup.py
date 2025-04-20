@@ -7,7 +7,7 @@ class CustomInstallCommand(Command):
         
 setup(
     name='nvoice',  # Replace with your desired package name
-    python_requires='>=3.9',
+    python_requires='>=3.10',
     version='1.0.0',  # Replace with your desired version
     description='Video dubbing package',
     author='Alex Don',
@@ -19,6 +19,9 @@ setup(
             'nvoice=nvoice.main:main',
         ],
     },
+    dependency_links=[
+        'https://download.pytorch.org/whl/cu121'  # Specify the index URL
+    ],
     extras_require={
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
