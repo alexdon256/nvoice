@@ -34,7 +34,7 @@ setup(
        ,'torch==2.1.1'
        ,'torchaudio==2.1.1'
        ,'torchvision==0.16.1'
-       ,'spleeter==2.4.0'
+       ,'spleeter==2.4.2'
        ,'soundstretch'
        ,'httpx[http2]==0.19.0'
        ,'pytube==15.0.0'
