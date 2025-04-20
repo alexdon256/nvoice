@@ -3,6 +3,7 @@ import pickle
 from language_tool_python import LanguageTool
 from deep_translator import GoogleTranslator
 from pydub import AudioSegment
+from langdetect import detect
 from num2words import num2words
 
 def replace_numbers_with_words(text):
@@ -31,7 +32,7 @@ for rec in diary:
         feature = grammar_modifier[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
         print(rec)
-        translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])
+        translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(rec[3])#f'({feature}):| '+
         print(translation)
         rec[3] = tool.correct(translation).split('|')[1]
         rec.append(1)
