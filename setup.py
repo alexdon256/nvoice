@@ -41,7 +41,7 @@ setup(
        ,'language-tool-python'
        ,'yt_dlp'
        ,'spleeter==2.4.2'
-       ,'pyannote.audio'
+       ,'pyannote.audio==3.2.0'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
