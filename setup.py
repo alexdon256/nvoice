@@ -42,7 +42,6 @@ setup(
        ,'torch==2.6.0'
        ,'typing-extensions==4.12.2'
        ,'typer==0.12.1'
-       ,'httpx==0.25.0'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
