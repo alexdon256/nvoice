@@ -36,7 +36,6 @@ setup(
        ,'language-tool-python'
        ,'ffmpeg-python'
        ,'yt_dlp'
-       ,'torch==2.8.0.dev20250319 --index-url https://download.pytorch.org/whl/nightly/cu128'
        ,'httpx==0.25.0'
     ],
     cmdclass={
