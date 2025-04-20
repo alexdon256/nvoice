@@ -22,22 +22,6 @@ setup(
     extras_require={
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
-    install_requires=[
-        'num2words'
-       ,'openai-whisper'
-       ,'audiostretchy'
-       ,'pydub==0.25.1'
-       ,'ipython==7.34.0'
-       ,'pyannote.audio==3.1.1'
-       ,'transformers'
-       ,'numba'
-       ,'deep-translator'
-       ,'ffmpeg-python'
-       ,'language-tool-python'
-       ,'ffmpeg-python'
-       ,'yt_dlp'
-       ,'httpx==0.25.0'
-    ],
     cmdclass={
         'custom_install': CustomInstallCommand,
     }
