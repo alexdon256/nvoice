@@ -25,7 +25,6 @@ setup(
     install_requires=[
         'num2words'
        ,'openai-whisper'
-       ,'spleeter==2.4.2'
        ,'audiostretchy'
        ,'pydub==0.25.1'
        ,'ipython==7.34.0'
