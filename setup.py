@@ -23,12 +23,12 @@ setup(
         'proto': ['protobuf==3.20.0'],  # Specific version for tts
     },
     install_requires=[
-        'torch'
-       ,'num2words'
+        'num2words'
        ,'openai-whisper'
        ,'spleeter==2.4.2'
        ,'audiostretchy'
        ,'pydub==0.25.1'
+       ,'httpx==0.25.0'
        ,'pyannote.audio==3.1.1'
        ,'transformers'
        ,'numba'
@@ -37,6 +37,7 @@ setup(
        ,'language-tool-python'
        ,'ffmpeg-python'
        ,'yt_dlp'
+       ,'typing_extensions==4.6'
     ],
     cmdclass={
         'custom_install': CustomInstallCommand,
