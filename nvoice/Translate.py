@@ -1,6 +1,6 @@
 import sys
 import pickle
-from language_tool_python import LanguageTool
+#from language_tool_python import LanguageTool
 from deep_translator import GoogleTranslator
 from pydub import AudioSegment
 from langdetect import detect
@@ -22,7 +22,7 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
 grammar_modifier = dict()
 for rec in diary:
     grammar_modifier[rec[2]]=''
-tool = LanguageTool(sys.argv[3])
+#tool = LanguageTool(sys.argv[3])
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
@@ -34,7 +34,7 @@ for rec in diary:
         print(rec)
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(rec[3])#f'({feature}):| '+
         print(translation)
-        rec[3] = tool.correct(translation)#.split('|')[1]
+        rec[3] = translation#tool.correct(translation)#.split('|')[1]
         rec.append(1)
     else:
         rec.append(0)
