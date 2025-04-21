@@ -29,7 +29,7 @@ class Diarizer:
         for turn, _, speaker in diarization.itertracks(yield_label=True):
             start = turn.start
             end = turn.end
-            
+            print(start, end)
             self._diary.append([start, end, speaker])
             segment = audio[start:end]
             
