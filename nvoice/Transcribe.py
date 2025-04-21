@@ -3,7 +3,7 @@ import torch
 import pickle
 from pydub import AudioSegment
 import whisper
-from language_tool_python import LanguageTool
+#from language_tool_python import LanguageTool
 
 class Transcriber:
     def __init__(self, work_dir, audio_path, src_lang):
@@ -47,10 +47,10 @@ class Transcriber:
         
             #remove empty text, correct grammar
             i=0
-            tool = LanguageTool(self.src_lang)
+            #tool = LanguageTool(self.src_lang)
             while i < len(transcription)-1:
                 text = transcription[i][3].strip()
-                transcription[i][3] = tool.correct(text)
+                transcription[i][3] = text#tool.correct(text)
                 
                 i+=1
             i=0
