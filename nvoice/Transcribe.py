@@ -2,7 +2,7 @@ import sys
 import torch
 import pickle
 from pydub import AudioSegment
-import whisper
+import stable_whisper
 #from language_tool_python import LanguageTool
 
 class Transcriber:
@@ -63,11 +63,10 @@ class Transcriber:
             self.diary = transcription
             
     def Transcribe(self):
-        model = whisper.load_model("turbo")
-        transcript = model.transcribe(
-            word_timestamps=True,
-            audio=self.audio_path
-        )
+                
+        model = stable_whisper.load_model('base') # Or other Whisper models like 'medium', 'large-v2'
+        transcript = model.transcribe(self.audio_path, word_timestamps=True)
+        
         self._FitTranscript(transcript['segments'])
         audio = AudioSegment.from_file(self.audio_path)
         
