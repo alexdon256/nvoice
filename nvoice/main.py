@@ -12,7 +12,7 @@ def main():
     else:
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
-        subprocess.run(['spleeter','separate','-o', sys.argv[1] ,'-p', 'spleeter:2stems', video_path])
+        subprocess.run(['spleeter','separate','-d 9000','-o', sys.argv[1] ,'-p', 'spleeter:2stems', video_path])
         proj = video_path.split('.mp4')[0]
         arg = video_path.split('.mp4')[0]+'/vocals.wav'
         vocals = proj+'/vocals'
