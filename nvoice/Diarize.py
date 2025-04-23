@@ -4,32 +4,29 @@ import torch
 import pickle
 from pydub import AudioSegment
 from speechbrain.pretrained import SpeakerDiarization
-import torchaudio
+from pyannote.audio import Pipeline
 
 class Diarizer:
     def __init__(self):
         self._diary = list()
-        self._audio_path = ''
-        self.device = "cuda"
+        self._audio_path=''
+        self.device = "cuda" 
         if not torch.cuda.is_available():
             self.device = "cpu"
         print(self.device)
-        self.diarizer = SpeakerDiarization.from_hparams(
-            source="speechbrain/diarization-xvector-voxceleb",
-            savedir="pretrained_models/diarization-xvector-voxceleb",
         )
-        self.sampling_rate = 44000  # Expected sample rate of input files
-
+        self.pipeline = Pipeline.from_pretrained(
+            "pyannote/speaker-diarization-3.1",
+            use_auth_token="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", )
+        
+        self.pipeline.to(torch.device(self.device))
+                
     def Diarize(self, audio_path):
-        self._diary = list()
-        self._audio_path = audio_path
+        self._diary = list() 
         diary_folder = audio_path.split(".wav")[0]
 
-        try:
             signal, sampling_rate = torchaudio.load(audio_path)
 
-            # Check if the loaded sample rate matches the expected rate
-            if sampling_rate != self.sampling_rate:
                 print(f"Warning: Input audio has a sample rate of {sampling_rate} Hz, but the script expects {self.sampling_rate} Hz. This might affect diarization accuracy.")
 
             duration = signal.shape[1] / sampling_rate
@@ -63,9 +60,19 @@ class Diarizer:
             print(f"Error during diarization: {e}")
 
 # outputs separate audio chunks of speech in wav format and pickle catalog into audio_path dir (first argument)
+            end = turn.end
+            print(start, end)
+            self._diary.append([start, end, speaker])
+            segment = audio[start:end]
+            
+        with open(diary_folder+'/diary.pickle', 'wb') as file:
+            pickle.dump(self._diary, file, protocol=pickle.HIGHEST_PROTOCOL)
+
+#outputs separate audio chunks of speach in wav format and csv catalog into audio_path dir (first argument)
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Missing argument audio_path")
     else:
         diarizer = Diarizer()
         diarizer.Diarize(sys.argv[1])
+        
