@@ -3,7 +3,7 @@ import sys
 import torch
 import pickle
 from pydub import AudioSegment
-from speechbrain.pretrained import DiarizationBrain
+from speechbrain.pretrained import SpeakerDiarization
 import torchaudio
 
 class Diarizer:
@@ -14,7 +14,7 @@ class Diarizer:
         if not torch.cuda.is_available():
             self.device = "cpu"
         print(self.device)
-        self.diarizer = DiarizationBrain.from_hparams(
+        self.diarizer = SpeakerDiarization.from_hparams(
             source="speechbrain/diarization-xvector-voxceleb",
             savedir="pretrained_models/diarization-xvector-voxceleb",
         )
