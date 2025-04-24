@@ -23,7 +23,7 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
 grammar_modifier = dict()
 genders = dict()
 for rec in diary:
-    print('0SEGMENT: '+rec)
+    print('0SEGMENT: '+rec[2])
     grammar_modifier[rec[2]] = rec[4]
 for rec in grammar_modifier.keys():
     print('1SEGMENT: '+rec)
