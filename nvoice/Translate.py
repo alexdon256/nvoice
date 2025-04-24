@@ -22,8 +22,6 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)
 grammar_modifier = dict()
 genders = dict()
-segment_length_ms = 30000  # 30 seconds
-audio = AudioSegment.from_file('./temp_seg.wav')
 for rec in diary:
     print('0SEGMENT: ')
     grammar_modifier[rec[2]] = rec[4]
@@ -33,7 +31,7 @@ for rec in grammar_modifier.keys():
     seg = Segmenter()
     segment_length_ms = 30000  # 30 seconds
     audio = AudioSegment.from_file(grammar_modifier[rec])
-    chunk = audio[0:segment_length_ms]
+    chunk = audio[0:30000]
     chunk.export(f"temp_chunk.wav", format="wav")
     segments = seg('./temp_chunk.wav') # Replace "audio.wav" with your audio file
     for segment in segments:
