@@ -5,7 +5,6 @@ from deep_translator import GoogleTranslator
 from pydub import AudioSegment
 from langdetect import detect
 from num2words import num2words
-from inaSpeechSegmenter import Segmenter
 
 def replace_numbers_with_words(text):
     words = text.split()
@@ -20,20 +19,25 @@ def replace_numbers_with_words(text):
 diary =[]
 with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)
+grammar_modifier = dict()
+for rec in diary:
+    gender = 'male'
+    seg = Segmenter()
+    segments = seg(rec[4]) # Replace "audio.wav" with your audio file
+    for segment in segments:
+        if segment[0] == 'speech':
+            grammar_modifier[rec[2]] = segment[2]
+            break
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
-        gender = 'male'
-        seg = Segmenter()
-        segments = seg(rec[4]) # Replace "audio.wav" with your audio file
-        for segment in segments:
-            if segment[0] == 'speech':
-                gender = segment[2]
-                break
         speaker_aud = AudioSegment.from_file(rec[4])
+        if grammar_modifier[rec[2]]=='':
+            grammar_modifier[rec[2]]='male'#predict(sys.argv[1]+f"/{rec[2]}.wav", sys.argv[2])
+        feature = grammar_modifier[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
         print(rec)
-        translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({gender}):| '+rec[3])
+        translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
         print(translation)
         rec[3] = translation#tool.correct(translation)#.split('|')[1]
         rec.append(1)
