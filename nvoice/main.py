@@ -12,15 +12,16 @@ def main():
     else:
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
-        os.mkdir(proj)
+        proj = video_path.split('.mp4')[0]
         vocals = sys.argv[1]+'/vocals.wav'
         audio = AudioSegment.from_file(video_path)
         audio.export(vocals, format='wav')
+        os.mkdir(proj)
         command = [
         "demucs",  # Assumes demucs is in your PATH.  If not, provide full path.
         "-n", "mdx_extra",  # Specify the model name
         "--two-stems", "vocals", # Only output vocals and other
-        "-o", sys.argv[1],  # Specify the output directory
+        "-o", proj,  # Specify the output directory
         audio,  # Path to the input audio file
         ]
         subprocess.run(command)
