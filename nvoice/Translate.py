@@ -23,10 +23,10 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
 grammar_modifier = dict()
 genders = dict()
 for rec in diary:
-    print('0SEGMENT: ')
+    print('0SEGMENT: '+rec)
     grammar_modifier[rec[2]] = rec[4]
 for rec in grammar_modifier.keys():
-    print('1SEGMENT: ')
+    print('1SEGMENT: '+rec)
     gender = 'male'
     seg = Segmenter()
     segment_length_ms = 30000  # 30 seconds
@@ -39,20 +39,17 @@ for rec in grammar_modifier.keys():
             print(rec+' SEGMENT: '+segment[0])
             genders[rec] = segment[0]
             break
-        
+i = 0
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
         speaker_aud = AudioSegment.from_file(rec[4])
         feature = genders[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
-        
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
         rec[3] = translation.split('|')[1]
         print(rec[3])
-        rec.append(1)
-    else:
-        rec.append(0)
-    print(rec)
+    rec.append()
+    i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)
