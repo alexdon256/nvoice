@@ -26,11 +26,12 @@ for rec in diary:
     seg = Segmenter()
     segments = seg(rec[4]) # Replace "audio.wav" with your audio file
     print('         processing '+rec[2])
-    for segment in segments:
-        if segment[0] == 'speech':
-            grammar_modifier[rec[2]] = segment[2]
-            print(segment[2])
-            break
+    if rec[2] not in grammar_modifier.values():
+        for segment in segments:
+            if segment[0] == 'speech':
+                grammar_modifier[rec[2]] = segment[2]
+                print(segment[2])
+                break
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
