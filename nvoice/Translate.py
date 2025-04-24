@@ -23,13 +23,9 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
 grammar_modifier = dict()
 genders = dict()
 for rec in diary:
-    print('0SEGMENT: '+rec[2])
     grammar_modifier[rec[2]] = rec[4]
-for rec in grammar_modifier.keys():
-    print('1SEGMENT: '+rec)
 try:
     for rec in grammar_modifier.keys():
-        print('2SEGMENT: '+rec)
         gender = 'male'
         seg = Segmenter()
         segment_length_ms = 30000  # 30 seconds
@@ -39,8 +35,7 @@ try:
         segments = seg('./temp_chunk.wav') # Replace "audio.wav" with your audio file
         genders[rec] = 'male'
         for segment in segments:
-            if segment[0] == 'male' or segment[0] == 'female':  
-                print(rec+' SEGMENT: '+segment[0])
+            if segment[0] == 'male' or segment[0] == 'female':
                 genders[rec] = segment[0]
                 break
 except FileNotFoundError as e:
