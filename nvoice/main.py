@@ -19,7 +19,7 @@ def main():
         audio.export(vocals, format='wav')
 
         arg = video_path.split('.mp4')[0]+'/vocals.wav'
-        vocals = proj+'/vocals'
+        vocalsdir = proj+'/vocals'
         arg2 = proj+'/accompaniment.wav'
         subprocess.run(['python',script_directory+f"/Diarize.py",vocals])
         #subprocess.run(['python',script_directory+f"/Transcribe.py", vocals, arg, sys.argv[3]])
