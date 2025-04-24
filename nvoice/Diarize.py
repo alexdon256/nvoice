@@ -4,9 +4,12 @@ import torch
 import pickle
 from pydub import AudioSegment
 from pyannote.audio import Pipeline
+import torch
 
 class Diarizer:
     def __init__(self):
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
         self._diary = list()
         self._audio_path=''
         self.device = "cuda" 

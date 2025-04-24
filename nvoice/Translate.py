@@ -21,6 +21,7 @@ diary =[]
 with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)
 grammar_modifier = dict()
+genders = dict()
 for rec in diary:
     grammar_modifier[rec[2]] = rec[4]
 for rec in grammar_modifier.keys():
@@ -30,18 +31,16 @@ for rec in grammar_modifier.keys():
     for segment in segments:
         print('SEGMENT:     '+segment[0])
         if segment[0] == 'male' or segment[0] == 'female':
-            grammar_modifier[rec[2]] = segment[0]
-            print('VALUE:     '+segment[0])
-            break
+            genders[rec[2]] = segment[0]
 
         
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
         speaker_aud = AudioSegment.from_file(rec[4])
-        if grammar_modifier[rec[2]]=='':
-            grammar_modifier[rec[2]]='male'#predict(sys.argv[1]+f"/{rec[2]}.wav", sys.argv[2])
-        feature = grammar_modifier[rec[2]]
+        if genders[rec[2]]=='':
+            genders[rec[2]]='male'#predict(sys.argv[1]+f"/{rec[2]}.wav", sys.argv[2])
+        feature = genders[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
         print(rec)
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
