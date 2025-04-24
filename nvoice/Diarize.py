@@ -23,7 +23,7 @@ class Diarizer:
         self._diary = list()
         diarization = self.pipeline(audio_path)                
         audio = AudioSegment.from_wav(audio_path)
-        os.mkdir(diary_folder)   
+        #os.mkdir(diary_folder)   
         
         for turn, _, speaker in diarization.itertracks(yield_label=True):
             start = turn.start
