@@ -7,4 +7,4 @@ def ExtractVoice(project ,vid):
     audio.export(vocals, format='wav')
     return vocals
 
-        
+if __name__ == "__main__":
