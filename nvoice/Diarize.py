@@ -19,9 +19,8 @@ class Diarizer:
         
         self.pipeline.to(torch.device(self.device))
                 
-    def Diarize(self, audio_path):
-        self._diary = list() 
-        diary_folder = audio_path.split(".wav")[0]
+    def Diarize(self, projdir, audio_path):
+        self._diary = list()
         diarization = self.pipeline(audio_path)                
         audio = AudioSegment.from_wav(audio_path)
         os.mkdir(diary_folder)   
@@ -33,7 +32,7 @@ class Diarizer:
             self._diary.append([start, end, speaker])
             segment = audio[start:end]
             
-        with open(diary_folder+'/diary.pickle', 'wb') as file:
+        with open(projdir+'/diary.pickle', 'wb') as file:
             pickle.dump(self._diary, file, protocol=pickle.HIGHEST_PROTOCOL)
 
 #outputs separate audio chunks of speach in wav format and csv catalog into audio_path dir (first argument)
@@ -42,5 +41,5 @@ if __name__ == "__main__":
         print("Missing argument audio_path")
     else:
         diarizer = Diarizer()
-        diarizer.Diarize(sys.argv[1])
+        diarizer.Diarize(sys.argv[1], sys.argv[2])
         
