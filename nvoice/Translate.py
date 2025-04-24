@@ -28,7 +28,7 @@ for rec in grammar_modifier.keys():
     seg = Segmenter()
     segments = seg(grammar_modifier[rec]) # Replace "audio.wav" with your audio file
     for segment in segments:
-        print(segment)
+        print('SEGMENT:     '+segment)
         if segment[0] == 'speech':
             grammar_modifier[rec[2]] = segment[2]
             break
