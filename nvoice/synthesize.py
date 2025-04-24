@@ -40,14 +40,12 @@ class Synthesis():
         i=0
         for record in self.transcript:
             if record[3]!='':
-                if record[6]==1:
-                    self.tts.tts_to_file(text=record[3].replace(';','.').replace('.',' .'),
-                        file_path=record[5],
-                        speaker_wav=record[4], temperature=0.7,
-                        language=self.accent)
-                if record[6]==1:
-                    output = self._squeeze_audio(record[5],record[0],record[1])
-                    record[5]= record[5].replace('.wav','r.wav')
+                self.tts.tts_to_file(text=record[3].replace(';','.').replace('.',' .'),
+                    file_path=record[5],
+                    speaker_wav=record[4], temperature=0.7,
+                    language=self.accent)
+                output = self._squeeze_audio(record[5],record[0],record[1])
+                record[5]= record[5].replace('.wav','r.wav')
             i+=1
         self.Glue(self.wd+'/result.wav')
 
