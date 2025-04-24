@@ -40,9 +40,10 @@ for rec in diary:
         speaker_aud = AudioSegment.from_file(rec[4])
         feature = genders[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
-        print(rec[3])
+        
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
         rec[3] = translation.split('|')[1]
+        print(rec[3])
         rec.append(1)
     else:
         rec.append(0)
