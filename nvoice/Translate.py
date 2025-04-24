@@ -22,16 +22,19 @@ with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)
 grammar_modifier = dict()
 for rec in diary:
+    grammar_modifier[rec[2]] = rec[4]
+for rec in grammar_modifier.keys():
     gender = 'male'
     seg = Segmenter()
     segments = seg(rec[4]) # Replace "audio.wav" with your audio file
-    print('         processing '+rec[2])
-    if rec[2] not in grammar_modifier.values():
-        for segment in segments:
-            if segment[0] == 'speech':
-                grammar_modifier[rec[2]] = segment[2]
-                print(segment[2])
-                break
+    for segment in segments:
+        if segment[0] == 'speech':
+            grammar_modifier[rec[2]] = segment[2]
+            print('         processing '+rec[2])
+            print(segment[2])
+            break
+
+        
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
