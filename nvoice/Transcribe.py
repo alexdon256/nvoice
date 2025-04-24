@@ -94,7 +94,7 @@ class Transcriber:
             rec.append(speaker_path)
             rec.append(self.wd + f'/{i}.wav')
             i += 1
-
+        
         with open(self.wd + '/transcript.pickle', 'wb') as file:
             pickle.dump(self.diary, file, protocol=pickle.HIGHEST_PROTOCOL)
 
