@@ -12,7 +12,7 @@ def main():
     else:
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
-        audio = ExtractVocals(sys.argv[1],sys.argv[2])
+        audio = SplitAudio.ExtractVocals(sys.argv[1],sys.argv[2])
         proj = video_path.split('.mp4')[0]
         command = [
         "demucs",  # Assumes demucs is in your PATH.  If not, provide full path.
