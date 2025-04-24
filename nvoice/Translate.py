@@ -46,7 +46,7 @@ for rec in diary:
         print(rec)
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
         print(translation)
-        rec[3] = translation#tool.correct(translation)#.split('|')[1]
+        rec[3] = translation.split('|')[1]
         rec.append(1)
     else:
         rec.append(0)
