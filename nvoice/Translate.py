@@ -5,6 +5,7 @@ from deep_translator import GoogleTranslator
 from pydub import AudioSegment
 from langdetect import detect
 from num2words import num2words
+import inaSpeechSegmenter
 
 def replace_numbers_with_words(text):
     words = text.split()
@@ -15,7 +16,7 @@ def replace_numbers_with_words(text):
         else:
             new_words.append(word)
     return " ".join(new_words)
-
+print('Translating')
 diary =[]
 with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)

@@ -37,7 +37,6 @@ class Transcriber:
             # match speaker
             last_speaker = ''
             for segment in segments:  # Changed 'chunk' to 'segment'
-                print(segment.start, segment.end)  # Access attributes directly
                 avg_time = (segment.start + segment.end) / 2 #calculate the midpoint
                 speaker = next(
                     (x for x in self.diary if x[0] < avg_time and x[1] > avg_time),
@@ -69,7 +68,7 @@ class Transcriber:
     def Transcribe(self):
         model = stable_whisper.load_model('base')  # Or other Whisper models like 'medium', 'large-v2'
         transcript = model.transcribe(self.audio_path, word_timestamps=True)
-
+        print('Transcribing')
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
         audio = AudioSegment.from_file(self.audio_path)
 
