@@ -25,7 +25,7 @@ for rec in diary:
     gender = 'male'
     seg = Segmenter()
     segments = seg(rec[4]) # Replace "audio.wav" with your audio file
-    print('processing '+rec[2])
+    print('         processing '+rec[2])
     for segment in segments:
         if segment[0] == 'speech':
             grammar_modifier[rec[2]] = segment[2]
