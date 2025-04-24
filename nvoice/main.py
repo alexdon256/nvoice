@@ -12,16 +12,24 @@ def main():
     else:
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
-        proj = video_path.split('.mp4')[0]
-        vocals = proj+'/audio.wav'
         os.mkdir(proj)
+        vocals = sys.argv[1]+'/vocals.wav'
         audio = AudioSegment.from_file(video_path)
         audio.export(vocals, format='wav')
+        command = [
+        "demucs",  # Assumes demucs is in your PATH.  If not, provide full path.
+        "-n", "mdx_extra",  # Specify the model name
+        "--two-stems", "vocals", # Only output vocals and other
+        "-o", sys.argv[1],  # Specify the output directory
+        audio,  # Path to the input audio file
+        ]
+        subprocess.run(command)
 
         arg = video_path.split('.mp4')[0]+'/vocals.wav'
-        vocalsdir = proj+'/vocals'
-        arg2 = proj+'/accompaniment.wav'
-        subprocess.run(['python',script_directory+f"/Diarize.py",vocals])
+        #vocals = proj+'/vocals'
+        #arg2 = proj+'/accompaniment.wav'
+        #subprocess.run(['python',script_directory+f"/SplitAudio.py", proj])
+        #subprocess.run(['python',script_directory+f"/Diarize.py",arg])
         #subprocess.run(['python',script_directory+f"/Transcribe.py", vocals, arg, sys.argv[3]])
         #subprocess.run(['python',script_directory+f"/Translate.py", vocals, script_directory, sys.argv[3], sys.argv[4]])        
         #subprocess.run(['python',script_directory+f"/synthesize.py", vocals, sys.argv[5], arg2])
