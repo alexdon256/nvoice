@@ -29,22 +29,19 @@ for rec in grammar_modifier.keys():
     seg = Segmenter()
     segments = seg(grammar_modifier[rec]) # Replace "audio.wav" with your audio file
     for segment in segments:
-        print('SEGMENT:     '+segment[0])
-        if segment[0] == 'male' or segment[0] == 'female':
+        if segment[0] == 'male' or segment[0] == 'female':  
+            print('SEGMENT:     '+segment[0])
             genders[rec[2]] = segment[0]
-
+            break
         
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
         speaker_aud = AudioSegment.from_file(rec[4])
-        if genders[rec[2]]=='':
-            genders[rec[2]]='male'#predict(sys.argv[1]+f"/{rec[2]}.wav", sys.argv[2])
         feature = genders[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
         print(rec)
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
-        print(translation)
         rec[3] = translation.split('|')[1]
         rec.append(1)
     else:
