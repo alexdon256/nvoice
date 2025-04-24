@@ -27,19 +27,28 @@ for rec in diary:
     grammar_modifier[rec[2]] = rec[4]
 for rec in grammar_modifier.keys():
     print('1SEGMENT: '+rec)
-    gender = 'male'
-    seg = Segmenter()
-    segment_length_ms = 30000  # 30 seconds
-    audio = AudioSegment.from_file(grammar_modifier[rec])
-    chunk = audio[0:30000]
-    chunk.export(f"temp_chunk.wav", format="wav")
-    segments = seg('./temp_chunk.wav') # Replace "audio.wav" with your audio file
-    genders[rec] = 'male'
-    for segment in segments:
-        if segment[0] == 'male' or segment[0] == 'female':  
-            print(rec+' SEGMENT: '+segment[0])
-            genders[rec] = segment[0]
-            break
+try:
+    for rec in grammar_modifier.keys():
+        print('2SEGMENT: '+rec)
+        gender = 'male'
+        seg = Segmenter()
+        segment_length_ms = 30000  # 30 seconds
+        audio = AudioSegment.from_file(grammar_modifier[rec])
+        chunk = audio[0:30000]
+        chunk.export(f"temp_chunk.wav", format="wav")
+        segments = seg('./temp_chunk.wav') # Replace "audio.wav" with your audio file
+        genders[rec] = 'male'
+        for segment in segments:
+            if segment[0] == 'male' or segment[0] == 'female':  
+                print(rec+' SEGMENT: '+segment[0])
+                genders[rec] = segment[0]
+                break
+except FileNotFoundError as e:
+    print(f"Error: Audio file not found for speaker {rec}: {e}")
+    genders[rec] = None  # Or some other default value
+except Exception as e:
+    print(f"An unexpected error occurred while processing audio for speaker {rec}: {e}")
+    genders[rec] = None  # Or some other default value
 i = 0
 for rec in diary:
     language = detect(rec[3])
