@@ -13,7 +13,7 @@ def main():
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
         proj = video_path.split('.mp4')[0]
-        vocals = sys.argv[1]+'/vocals.wav'
+        vocals = sys.argv[1]+'/audio.wav'
         audio = AudioSegment.from_file(video_path)
         audio.export(vocals, format='wav')
         os.mkdir(proj)
@@ -22,11 +22,11 @@ def main():
         "-n", "mdx_extra",  # Specify the model name
         "--two-stems", "vocals", # Only output vocals and other
         "-o", proj,  # Specify the output directory
-        audio,  # Path to the input audio file
+        vocals,  # Path to the input audio file
         ]
         subprocess.run(command)
 
-        arg = video_path.split('.mp4')[0]+'/vocals.wav'
+        #arg = video_path.split('.mp4')[0]+'/vocals.wav'
         #vocals = proj+'/vocals'
         #arg2 = proj+'/accompaniment.wav'
         #subprocess.run(['python',script_directory+f"/SplitAudio.py", proj])
