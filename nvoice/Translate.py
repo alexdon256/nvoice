@@ -34,6 +34,7 @@ for rec in grammar_modifier.keys():
     chunk = audio[0:30000]
     chunk.export(f"temp_chunk.wav", format="wav")
     segments = seg('./temp_chunk.wav') # Replace "audio.wav" with your audio file
+    genders[rec] = 'male'
     for segment in segments:
         if segment[0] == 'male' or segment[0] == 'female':  
             print(rec+' SEGMENT: '+segment[0])
