@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator
 from pydub import AudioSegment
 from langdetect import detect
 from num2words import num2words
-import inaSpeechSegmenter
+from inaSpeechSegmenter import Segmenter
 
 def replace_numbers_with_words(text):
     words = text.split()
