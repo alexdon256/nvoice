@@ -28,6 +28,7 @@ for rec in diary:
     for segment in segments:
         if segment[0] == 'speech':
             grammar_modifier[rec[2]] = segment[2]
+            print(segment[2])
             break
 for rec in diary:
     language = detect(rec[3])
