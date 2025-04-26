@@ -45,7 +45,7 @@ class Transcriber:
                 if speaker == '':
                     speaker = last_speaker
                 if len(segment.text) > 0 and speaker != '':
-                    transcription.append([speaker[0], speaker[1], speaker[2], segment.text])
+                    transcription.append([segment.start, segment.end, speaker[2], segment.text])
                 last_speaker = speaker
 
             # remove empty text, correct grammar
