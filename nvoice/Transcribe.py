@@ -3,7 +3,7 @@ import torch
 import pickle
 from pydub import AudioSegment
 import stable_whisper
-
+import numpy as np
 # from language_tool_python import LanguageTool
 
 
@@ -28,42 +28,88 @@ class Transcriber:
             if time > rec[0] and time < rec[1]:
                 return rec
 
-    def _FitTranscript(self, segments):  # Changed 'chunks' to 'segments'
+    def _FitTranscript(self, chunks):
         transcription = []
-        if len(segments) > 0:  # Changed 'chunks' to 'segments'
+        if len(chunks)>0:
             for rec in self.diary:
                 rec.append('')
-
-            # match speaker
+            
+            words = dict()
+            seconds = dict()
+            for chunk in self.diary:
+                words[chunk[2]]=0
+                seconds[chunk[2]] =0
+            #match speaker
             last_speaker = ''
-            for segment in segments:  # Changed 'chunk' to 'segment'
-                avg_time = (segment.start + segment.end) / 2 #calculate the midpoint
-                speaker = next(
-                    (x for x in self.diary if x[0] < avg_time and x[1] > avg_time),
-                    '',
-                )
+            for chunk in chunks:
+                
+                avg_time = (chunk['seek'])
+                speaker = next(filter(lambda x: x[0]<avg_time and x[1]>avg_time or x[0]>chunk['start'], self.diary), '')
                 if speaker == '':
-                    speaker = last_speaker
-                if len(segment.text) > 0 and speaker != '':
-                    transcription.append([segment.start, segment.end, speaker[2], segment.text])
-                last_speaker = speaker
-
-            # remove empty text, correct grammar
-            i = 0
-            # tool = LanguageTool(self.src_lang)
-            while i < len(transcription) - 1:
-                text = transcription[i][3].strip()
-                transcription[i][3] = text  # tool.correct(text)
-
-                i += 1
-            i = 0
-            while i < len(transcription) - 1:
+                    speaker=last_speaker
+                if len(chunk['text'])>0 and speaker!='':
+                    transcription.append([chunk['start'],chunk['end'],speaker[2],chunk['text']]) 
+                    words[speaker[2]]+=len(chunk['text'])
+                    seconds[speaker[2]] += speaker[1]-speaker[0]
+                last_speaer = speaker
+            #words per second calculation
+            wps = dict()
+            for key, _ in words.items():
+                if seconds[key]>0.0:
+                    wps[key] = words[key]/seconds[key]
+    
+            #remove empty text, correct grammar
+            i=0
+            while i < len(transcription)-1:
                 text = transcription[i][3].strip()
                 if text.isspace():
                     transcription.pop(i)
-                    i -= 1
-                i += 1
-        self.diary = transcription
+                    i-=1
+                i+=1
+            
+            #calculate 80 percentile pauses length
+            i=0
+            pauses = []
+            while i < len(transcription)-1:
+                pause = transcription[i+1][0] - transcription[i][1]
+                if pause>0.0:
+                    pauses.append(transcription[i+1][0] - transcription[i][1])
+                i+=1            
+            npauses= np.array(pauses)
+            threshold = np.percentile(npauses, 80)if len(npauses) else 0            
+            npauses = npauses[npauses <= threshold]
+            avg_pause = npauses.mean()
+            #stich sentense
+            i=0
+            while i < len(transcription)-1:
+                cur_speaker = transcription[i][2]
+                nxt_speaker = transcription[i+1][2]
+                text = transcription[i][3]
+                nxt_text = transcription[i+1][3].strip()
+                cur_wps = len(text)/(transcription[i][1]-transcription[i][0])
+                speed_div = wps[cur_speaker]/cur_wps
+                merge = False
+                pause = transcription[i+1][0]-transcription[i][1]
+                length = len(text)+len(nxt_text)+1
+                merge = (speed_div>1.3 or pause<avg_pause) and cur_speaker==nxt_speaker 
+  
+                if (not(text.endswith('.') or text.endswith('?') or text.endswith('!')) or merge) and not length>=4990 :
+                    text += ' '+nxt_text
+                    transcription[i][3] = text
+                    transcription[i][1] = transcription[i+1][1]
+                    transcription.pop(i+1)
+                    i-=1
+                i+=1
+            #remove empty text, correct grammar
+            
+            i=0
+            while i < len(transcription)-1:
+                text = transcription[i][3].strip()
+                if text.isspace():
+                    transcription.pop(i)
+                    i-=1
+                i+=1            
+            self.diary = transcription
 
     def Transcribe(self):
         model = stable_whisper.load_model('base')  # Or other Whisper models like 'medium', 'large-v2'
