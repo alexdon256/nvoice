@@ -31,7 +31,7 @@ def main():
         subprocess.run(['python',script_directory+f"/Transcribe.py", proj, arg, sys.argv[3]])
         subprocess.run(['python',script_directory+f"/Translate.py", proj, script_directory, sys.argv[3], sys.argv[4]])        
         subprocess.run(['python',script_directory+f"/synthesize.py", proj, sys.argv[5], arg2])
-        subprocess.run(['python',script_directory+f"/RecoverVideo.py", video_path, vocals, sys.argv[1]])
+        subprocess.run(['python',script_directory+f"/RecoverVideo.py", video_path, proj, sys.argv[1]])
         
 if __name__ == "__main__":
     main()
