@@ -27,6 +27,10 @@ def main():
         subprocess.run(command)
         arg = proj+'/mdx_extra/audio/vocals.wav'
         arg2 = proj+'/mdx_extra/audio/no_vocals.wav'
+        audio = AudioSegment.from_file(arg2)
+        lower_sample_rate = 16000
+        audio = audio.set_frame_rate(16000)
+        audio.export(arg2, format='wav')
         subprocess.run(['python',script_directory+f"/Diarize.py",proj, arg])
         subprocess.run(['python',script_directory+f"/Transcribe.py", proj, arg, sys.argv[3]])
         subprocess.run(['python',script_directory+f"/Translate.py", proj, script_directory, sys.argv[3], sys.argv[4]])        
