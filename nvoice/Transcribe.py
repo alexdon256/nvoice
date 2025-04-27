@@ -113,7 +113,7 @@ class Transcriber:
             self.diary = transcription
 
     def Transcribe(self):
-        model = stable_whisper.load_model('base')  # Or other Whisper models like 'medium', 'large-v2'
+        model = stable_whisper.load_model('large-v3')  # Or other Whisper models like 'medium', 'large-v2'
         transcript = model.transcribe(self.audio_path, word_timestamps=True)
         print('Transcribing')
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
