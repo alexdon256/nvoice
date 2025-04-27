@@ -53,7 +53,6 @@ for rec in diary:
         rec[3] = replace_numbers_with_words(rec[3])
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
         rec[3] = translation.split('|')[1]
-        print(rec[3])
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)

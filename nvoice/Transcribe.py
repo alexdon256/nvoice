@@ -42,7 +42,7 @@ class Transcriber:
             #match speaker
             last_speaker = ''
             for chunk in chunks:
-                
+                print(chunk)
                 avg_time = (float(chunk['start'])+float(chunk['end']))/2
                 speaker = next(filter(lambda x: x[0]<avg_time and x[1]>avg_time or x[0]>chunk['start'], self.diary), '')
                 if speaker == '':
