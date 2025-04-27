@@ -43,13 +43,13 @@ class Transcriber:
             last_speaker = ''
             for chunk in chunks:
                 print(chunk)
-                avg_time = (float(chunk['start'])+float(chunk['end']))/2
+                avg_time = (chunk.start+chunk.end)/2
                 speaker = next(filter(lambda x: x[0]<avg_time and x[1]>avg_time or x[0]>chunk['start'], self.diary), '')
                 if speaker == '':
                     speaker=last_speaker
-                if len(chunk['text'])>0 and speaker!='':
-                    transcription.append([chunk['start'],chunk['end'],speaker[2],chunk['text']]) 
-                    words[speaker[2]]+=len(chunk['text'])
+                if len(chunk.text)>0 and speaker!='':
+                    transcription.append([chunk.start,chunk.end,speaker[2],chunk.text]) 
+                    words[speaker[2]]+=len(chunk.text)
                     seconds[speaker[2]] += speaker[1]-speaker[0]
                 last_speaer = speaker
             #words per second calculation
