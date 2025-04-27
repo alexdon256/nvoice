@@ -86,7 +86,7 @@ class Transcriber:
                 nxt_speaker = transcription[i+1][2]
                 text = transcription[i][3]
                 nxt_text = transcription[i+1][3].strip()
-                print(transcription[i][0]),transcription[i][1])
+                print(transcription[i][0],transcription[i][1])
                 cur_wps = len(text)/(transcription[i][1]-transcription[i][0])
                 speed_div = wps[cur_speaker]/cur_wps
                 merge = False
@@ -113,7 +113,7 @@ class Transcriber:
             self.diary = transcription
 
     def Transcribe(self):
-        model = stable_whisper.load_model('large-v3')  # Or other Whisper models like 'medium', 'large-v2'
+        model = stable_whisper.load_model('turbo')  # Or other Whisper models like 'medium', 'large-v2'
         transcript = model.transcribe(self.audio_path, word_timestamps=True)
         print('Transcribing')
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
