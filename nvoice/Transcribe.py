@@ -86,6 +86,7 @@ class Transcriber:
                 nxt_speaker = transcription[i+1][2]
                 text = transcription[i][3]
                 nxt_text = transcription[i+1][3].strip()
+                print(transcription[i][0]),transcription[i][1])
                 cur_wps = len(text)/(transcription[i][1]-transcription[i][0])
                 speed_div = wps[cur_speaker]/cur_wps
                 merge = False
