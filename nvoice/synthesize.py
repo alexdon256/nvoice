@@ -1,3 +1,4 @@
+import os
 import sys
 import torch
 import pickle
@@ -24,7 +25,10 @@ class Synthesis():
         length_ms = audio.duration_seconds
         desired_length = end_time-start_time
         speed_factor = desired_length/length_ms
-        stretch_audio(audio_path, audio_path.replace('.wav','r.wav'), ratio=speed_factor)
+        if speed_factor > 1:
+            os.rename(audio_path, audio_path.replace('.wav','r.wav'))
+        else:
+            stretch_audio(audio_path, audio_path.replace('.wav','r.wav'), ratio=speed_factor)
         
     def Glue(self, result_path):
         output = AudioSegment.from_file(self.background)
