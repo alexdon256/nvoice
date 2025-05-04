@@ -5,6 +5,7 @@ RUN apt-get update -y \
 RUN ldconfig /usr/local/cuda-12.1/compat/
 RUN apt-get install zlib1g \
     && apt-get -y install cudnn9-cuda-12
+RUN apt install git -y
 RUN apt install ffmpeg -y
 RUN pip install --no-cache-dir runpod
 RUN pip install --no-cache-dir --upgrade wheel
