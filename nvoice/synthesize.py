@@ -43,7 +43,6 @@ class Synthesis():
         i=0
         for record in self.transcript:
             if record[3]!='':
-                print(record[3])
                 wfile=self.wd+f'/{i}.wav'
                 self.tts.tts_to_file(text=record[3].replace(';','.').replace('.',' .'),
                     file_path=wfile,

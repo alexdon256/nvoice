@@ -42,7 +42,6 @@ class Transcriber:
             #match speaker
             last_speaker = ''
             for chunk in chunks:
-                print(chunk)
                 avg_time = (chunk.start+chunk.end)/2
                 speaker = next(filter(lambda x: x[0]<avg_time and x[1]>avg_time or x[0]>chunk.start, self.diary), '')
                 if speaker == '':
@@ -86,7 +85,6 @@ class Transcriber:
                 nxt_speaker = transcription[i+1][2]
                 text = transcription[i][3]
                 nxt_text = transcription[i+1][3].strip()
-                print(transcription[i][0],transcription[i][1])
                 cur_wps = len(text)/(transcription[i][1]-transcription[i][0])
                 speed_div = wps[cur_speaker]/cur_wps
                 merge = False
@@ -115,7 +113,6 @@ class Transcriber:
     def Transcribe(self):
         model = stable_whisper.load_model('turbo')  # Or other Whisper models like 'medium', 'large-v2'
         transcript = model.transcribe(self.audio_path, word_timestamps=True)
-        print('Transcribing')
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
         audio = AudioSegment.from_file(self.audio_path)
         speakers = dict()
