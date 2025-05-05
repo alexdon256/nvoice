@@ -12,7 +12,7 @@ def main():
     else:
         #abstraction layer to free vram for each subroutine (some objects like Spleeter stay in vram even after exiting scope or autodisposal)
         video_path = sys.argv[1]+'/'+sys.argv[2]
-        proj = video_path.split('.mp4')[0]
+        proj = video_path.split('.webm')[0]
         vocals = sys.argv[1]+'/audio.wav'
         audio = AudioSegment.from_file(video_path)
         audio.export(vocals, format='wav')
