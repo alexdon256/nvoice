@@ -26,7 +26,6 @@ class Synthesis():
         desired_length = end_time-start_time
         speed_factor = desired_length/length_ms
         if speed_factor > 1:
-            print(audio_path)
             os.rename(audio_path, audio_path.replace('.wav','r.wav'))
         else:
             stretch_audio(audio_path, audio_path.replace('.wav','r.wav'), ratio=speed_factor)
@@ -48,8 +47,7 @@ class Synthesis():
                     file_path=wfile,
                     speaker_wav=record[4], temperature=0.7,
                     language=self.accent)
-                record.append(wfile)
-                print(record[5])
+                record.append(self.wd+f'/{i}r.wav')
                 output = self._squeeze_audio(wfile,record[0],record[1])
             i+=1
         self.Glue(self.wd+'/result.wav')
