@@ -118,10 +118,12 @@ class Transcriber:
         print('Transcribing')
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
         audio = AudioSegment.from_file(self.audio_path)
-
+        speakers = dict()
         for rec in self.diary:
+            speakers[rec[2]] = 0
+        for rec in speakers.keys():
             speaker = AudioSegment.silent(0, audio.frame_rate)
-            speaker.export(self.wd + f'/{rec[2]}.wav', format='wav')
+            speaker.export(self.wd + f'/{rec}.wav', format='wav')
         i = 0
         for rec in self.diary:
             start = rec[0]
@@ -135,10 +137,10 @@ class Transcriber:
             speaker_aud = AudioSegment.from_file(speaker_path)
             speaker_aud += referense_segment
             speaker_aud.export(speaker_path, format="wav")
-            referense_segment.export(self.wd + f'/{i}.wav', format="wav")
+            #referense_segment.export(self.wd + f'/{i}.wav', format="wav")
             
             rec.append(speaker_path)
-            rec.append(self.wd + f'/{i}.wav')
+            #rec.append(self.wd + f'/{i}.wav')
             i += 1
         
         with open(self.wd + '/transcript.pickle', 'wb') as file:

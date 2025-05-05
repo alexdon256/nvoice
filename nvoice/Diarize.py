@@ -23,7 +23,6 @@ class Diarizer:
         self.pipeline.to(torch.device(self.device))
                 
     def Diarize(self, projdir, audio_path):
-        print('Diarizing')
         self._diary = list()
         diarization = self.pipeline(audio_path)                
         audio = AudioSegment.from_wav(audio_path)

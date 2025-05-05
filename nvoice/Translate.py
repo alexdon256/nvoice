@@ -16,7 +16,7 @@ def replace_numbers_with_words(text):
         else:
             new_words.append(word)
     return " ".join(new_words)
-print('Translating')
+
 diary =[]
 with open(sys.argv[1]+'/transcript.pickle', 'rb') as file:
     diary = pickle.load(file)
@@ -48,7 +48,6 @@ i = 0
 for rec in diary:
     language = detect(rec[3])
     if language != sys.argv[4]:
-        speaker_aud = AudioSegment.from_file(rec[4])
         feature = genders[rec[2]]
         rec[3] = replace_numbers_with_words(rec[3])
         translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
