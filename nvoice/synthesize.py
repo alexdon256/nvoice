@@ -50,6 +50,8 @@ class Synthesis():
                     language=self.accent)
                 record.append(wfile)
                 output = self._squeeze_audio(wfile,record[0],record[1])
+            else:
+                print(i)
             i+=1
         self.Glue(self.wd+'/result.wav')
 
