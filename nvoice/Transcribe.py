@@ -111,7 +111,7 @@ class Transcriber:
             self.diary = transcription
 
     def Transcribe(self):
-        model = stable_whisper.load_model('turbo')  # Or other Whisper models like 'medium', 'large-v2'
+        model = stable_whisper.load_model('large-v3')  # Or other Whisper models like 'medium', 'large-v2'
         transcript = model.transcribe(self.audio_path, word_timestamps=True)
         self._FitTranscript(transcript.segments)  # Pass transcript.segments
         audio = AudioSegment.from_file(self.audio_path)
