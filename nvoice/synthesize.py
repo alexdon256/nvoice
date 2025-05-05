@@ -26,6 +26,7 @@ class Synthesis():
         desired_length = end_time-start_time
         speed_factor = desired_length/length_ms
         if speed_factor > 1:
+            print(audio_path)
             os.rename(audio_path, audio_path.replace('.wav','r.wav'))
         else:
             stretch_audio(audio_path, audio_path.replace('.wav','r.wav'), ratio=speed_factor)
@@ -35,7 +36,6 @@ class Synthesis():
         for record in self.transcript:
             if record[3]!='':
                 audio = AudioSegment.from_file(record[5])
-                resampled_audio = audio.set_frame_rate(output.frame_rate)
                 output = output.overlay(audio, position=int(record[0]*1000))
         output.export(result_path, format='wav')                
         
@@ -49,9 +49,8 @@ class Synthesis():
                     speaker_wav=record[4], temperature=0.7,
                     language=self.accent)
                 record.append(wfile)
+                print(record[5])
                 output = self._squeeze_audio(wfile,record[0],record[1])
-            else:
-                print(i)
             i+=1
         self.Glue(self.wd+'/result.wav')
 
