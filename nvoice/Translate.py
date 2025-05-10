@@ -52,7 +52,8 @@ for rec in diary:
     if textblock.split().len() > 3000:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
-i=0, j=0
+i=0
+j=0
 for block in translation.split('|'):
     if not i % 2 == 0:
         diary[j][3]=block[i]
