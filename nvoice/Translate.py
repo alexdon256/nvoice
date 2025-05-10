@@ -56,8 +56,8 @@ for rec in diary:
 i=0
 j=0
 for block in translation.split('|'):
-    print('j = ',j,block+'\n')
-    if not i % 2 == 1:
+    #print('j = ',j,block+'\n')
+    if not i % 2 == 0:
         diary[j][3]=block
         print('i = ',i,block+'\n')
         j+=1
