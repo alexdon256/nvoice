@@ -58,8 +58,8 @@ i=0
 j=0
 for block in translation.split('|'):
     if not i % 2 == 1:
-        diary[j][3]=block[i]
-        print(block[i])
+        diary[j][3]=block
+        print(block)
         j+=1
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
