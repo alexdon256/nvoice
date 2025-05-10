@@ -44,14 +44,20 @@ except FileNotFoundError as e:
 except Exception as e:
     print(f"An unexpected error occurred while processing audio for speaker {rec}: {e}")
     genders[rec] = None  # Or some other default value
-i = 0
+textblock = ''
 for rec in diary:
-    language = detect(rec[3])
-    if language != sys.argv[4]:
-        feature = genders[rec[2]]
-        rec[3] = replace_numbers_with_words(rec[3])
-        translation = GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(f'({feature}):| '+rec[3])#
-        rec[3] = translation.split('|')[1]
+    feature = genders[rec[2]]
+    rec[3] = replace_numbers_with_words(rec[3])
+    textblock = textblock + f' ({feature}):| '+ rec[3]
+    if textblock.split().len() > 3000:
+        translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
+        textblock = ''
+i=0, j=0
+for block in translation.split('|'):
+    if not i % 2 == 0:
+        diary[j][3]=block[i]
+        print(block[i])
+        j+=1
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)
