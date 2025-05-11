@@ -102,7 +102,7 @@ class Transcriber:
             #remove empty text, correct grammar
             
             i=0
-            while i < len(transcription)-1:
+            while i < len(transcription):
                 text = transcription[i][3].strip()
                 if text.isspace():
                     transcription.pop(i)
