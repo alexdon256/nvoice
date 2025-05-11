@@ -54,13 +54,10 @@ for rec in diary:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
 i=0
-j=0
+
 for block in translation.split('&'):
-    #print('j = ',j,block+'\n')
-    if not i % 2 == 0:
-        diary[j][3]=block.split('|')[1]
-        print('i = ',i,block+'\n')
-        j+=1
+    diary[j][3]=block.split('|')[1]
+    print('i = ',i,block+'\n')
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)
