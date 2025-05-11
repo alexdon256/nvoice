@@ -54,16 +54,16 @@ for rec in diary:
     if len(textblock) > 3000:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
-    if len(textblock) >  0:
+    
+if len(textblock) >  0:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
 
-    print('i = ',i,'\n')
-    i+=1
 i=0
 
 for block in translation.split('~'):
-    diary[i][3]=block.split('|')[1]
-    print('i = ',i,block+'\n')
+    if len(block)>0:
+        diary[i][3]=block.split('|')[1]
+        print('i = ',i,block+'\n')
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)
