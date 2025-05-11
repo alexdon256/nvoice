@@ -92,7 +92,7 @@ class Transcriber:
                 length = len(text)+len(nxt_text)+1
                 merge = (speed_div>1.3 or pause<avg_pause) and cur_speaker==nxt_speaker 
   
-                if (not(text.endswith('.') or text.endswith('?') or text.endswith('!')) or merge) and not length>=4990 :
+                if (not(text.endswith('.') or text.endswith('?') or text.endswith('!')) or merge) and not length>=3000:
                     text += ' '+nxt_text
                     transcription[i][3] = text
                     transcription[i][1] = transcription[i+1][1]
@@ -107,7 +107,10 @@ class Transcriber:
                 if text.isspace():
                     transcription.pop(i)
                     i-=1
-                i+=1            
+                else:
+                    print(i, text) 
+                i+=1         
+                  
             self.diary = transcription
 
     def Transcribe(self):
