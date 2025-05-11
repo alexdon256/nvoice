@@ -49,7 +49,7 @@ translation = ''
 for rec in diary:
     feature = genders[rec[2]]
     rec[3] = replace_numbers_with_words(rec[3])
-    textblock = textblock + f' ({feature}):| '+ rec[3] + '~'
+    textblock = textblock + f' ({feature}):| '+ rec[3] + ' ~ '
     if len(textblock) > 3000:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
