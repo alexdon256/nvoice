@@ -56,7 +56,7 @@ for rec in diary:
 i=0
 
 for block in translation.split('&'):
-    diary[j][3]=block.split('|')[1]
+    diary[i][3]=block.split('|')[1]
     print('i = ',i,block+'\n')
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
