@@ -46,6 +46,7 @@ except Exception as e:
     genders[rec] = None  # Or some other default value
 textblock = ''
 translation = ''
+i=0
 for rec in diary:
     feature = genders[rec[2]]
     rec[3] = replace_numbers_with_words(rec[3])
@@ -53,6 +54,11 @@ for rec in diary:
     if len(textblock) > 3000:
         translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
+    if len(textblock) >  0:
+        translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
+
+    print('i = ',i,'\n')
+    i+=1
 i=0
 
 for block in translation.split('~'):
