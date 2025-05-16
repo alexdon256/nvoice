@@ -69,8 +69,8 @@ i=0
 
 for block in translation.split('~'):
     if len(block)>0:
-        diary[i][3]=block.split('|')[1]
         print('i = ',i,block+'\n')
+        diary[i][3]=block.split('|')[1]
     i+=1
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)

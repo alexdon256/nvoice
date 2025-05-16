@@ -107,8 +107,6 @@ class Transcriber:
                 if text.isspace():
                     transcription.pop(i)
                     i-=1
-                else:
-                    print(i, text) 
                 i+=1         
                   
             self.diary = transcription
