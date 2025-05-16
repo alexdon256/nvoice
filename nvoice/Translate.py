@@ -56,14 +56,14 @@ for rec in diary:
     if len(textblock) > 3000:
         translation = translation + translator.translate_text(
                                             textblock,
-                                            target_lang=sys.argv[4])
+                                            target_lang=sys.argv[4]).text
                                         #GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
     
 if len(textblock) >  0:
         translation = translation + translator.translate_text(
                                             textblock,
-                                            target_lang=sys.argv[4])#GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
+                                            target_lang=sys.argv[4]).text#GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
 
 i=0
 
