@@ -66,7 +66,7 @@ if len(textblock) >  0:
                                             target_lang=sys.argv[4]).text#GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
 
 i=0
-
+print(translation)
 for block in translation.split('~'):
     if len(block)>0:
         print('i = ',i,block+'\n')
