@@ -1,7 +1,8 @@
 import sys
 import pickle
 #from language_tool_python import LanguageTool
-from deep_translator import GoogleTranslator
+#from deep_translator import GoogleTranslator
+import deepl
 from pydub import AudioSegment
 from langdetect import detect
 from num2words import num2words
@@ -47,16 +48,22 @@ except Exception as e:
 textblock = ''
 translation = ''
 i=0
+translator = deepl.Translator(bc56d147-0ada-4789-806d-35359c319fc2:fx)
 for rec in diary:
     feature = genders[rec[2]]
     rec[3] = replace_numbers_with_words(rec[3])
     textblock = textblock + f' ({feature}):| '+ rec[3] + ' ~ '
     if len(textblock) > 3000:
-        translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
+        translation = translation + translator.translate_text(
+                                            textblock,
+                                            target_lang=sys.argv[4])
+                                        #GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
         textblock = ''
     
 if len(textblock) >  0:
-        translation = translation + GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
+        translation = translation + translator.translate_text(
+                                            textblock,
+                                            target_lang=sys.argv[4])#GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
 
 i=0
 
