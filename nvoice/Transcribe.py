@@ -90,9 +90,9 @@ class Transcriber:
                 merge = False
                 pause = transcription[i+1][0]-transcription[i][1]
                 length = len(text)+len(nxt_text)+1
-                merge = cur_speaker==nxt_speaker 
+                merge = (speed_div>1.3 or pause<avg_pause) and cur_speaker==nxt_speaker 
   
-                if (not(text.endswith('.') or text.endswith('?') or text.endswith('!')) or merge):
+                if (not(text.endswith('.') or text.endswith('?') or text.endswith('!')) or merge) and not length>=3000:
                     text += ' '+nxt_text
                     transcription[i][3] = text
                     transcription[i][1] = transcription[i+1][1]
