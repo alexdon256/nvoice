@@ -52,16 +52,15 @@ translator = deepl.Translator('bc56d147-0ada-4789-806d-35359c319fc2:fx')
 for rec in diary:
     feature = genders[rec[2]]
     rec[3] = replace_numbers_with_words(rec[3])
-    textblock = textblock + f' ({feature}):| '+ rec[3] + ' ~ '
+    textblock = f' ({feature}):| '+ rec[3] + ' ~ '
     translation =  translator.translate_text(
                                             textblock,
                                             target_lang=sys.argv[4]).text
                                         #GoogleTranslator(source=sys.argv[3], target=sys.argv[4]).translate(textblock)
-    if len(textblock.split('|'))>1:
-        rec[3]=textblock.split('|')[1]
+    if len(translation.split('|'))>1:
+        rec[3]=translation.split('|')[1]
     else:
-        rec[3]=textblock
-    rec[3] = textblock
-         
+        rec[3]=translation
+
 with open(sys.argv[1]+'/transcript.pickle', 'wb') as file:
     pickle.dump(diary, file, protocol=pickle.HIGHEST_PROTOCOL)
