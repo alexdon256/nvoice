@@ -52,7 +52,7 @@ translator = deepl.Translator('bc56d147-0ada-4789-806d-35359c319fc2:fx')
 for rec in diary:
     feature = genders[rec[2]]
     rec[3] = replace_numbers_with_words(rec[3])
-    textblock = f' ({feature}):| '+ rec[3] + ' ~ '
+    textblock = f' ({feature}):| '+ rec[3]
     translation =  translator.translate_text(
                                             textblock,
                                             target_lang=sys.argv[4]).text
